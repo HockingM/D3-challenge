@@ -188,7 +188,7 @@ function makeResponsive() {
       .text("Lacks Healthcare (%)");
 
     // updateToolTip function above csv import
-//  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+    //  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
     // x axis labels event listener
     xAxisGroup.selectAll("text")
@@ -223,7 +223,7 @@ function makeResponsive() {
             numRecordsLabel
               .classed("active", false)
               .classed("inactive", true);
-              xAxisIncome
+            xAxisIncome
               .classed("active", false)
               .classed("inactive", true);
           }
@@ -232,10 +232,10 @@ function makeResponsive() {
             xAxisPoverty
               .classed("active", false)
               .classed("inactive", true);
-              xAxisAge
+            xAxisAge
               .classed("active", true)
               .classed("inactive", false);
-              xAxisIncome
+            xAxisIncome
               .classed("active", false)
               .classed("inactive", true);
           }
@@ -245,10 +245,10 @@ function makeResponsive() {
             xAxisPoverty
               .classed("active", false)
               .classed("inactive", true);
-              xAxisAge
+            xAxisAge
               .classed("active", true)
               .classed("inactive", false);
-              xAxisIncome
+            xAxisIncome
               .classed("active", false)
               .classed("inactive", true);
           }
