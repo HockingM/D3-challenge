@@ -26,8 +26,9 @@
 /* font size dependent on radius, see app.js */
 .stateText {
   font-family: sans-serif;
-  fill: #fff;
+  fill: #ffff;
   text-anchor: middle;
+  vertical-align: baseline;
 }
 
 .stateCircle {
@@ -60,11 +61,13 @@
 
   .aText {
     font-size: 14px;
+    font-weight: bold;
   }
 }
 
 @media screen and (max-width: 400px) {
   .aText {
     font-size: 13px;
+    font-weight: bold;
   }
 }
