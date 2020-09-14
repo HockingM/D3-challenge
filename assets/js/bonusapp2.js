@@ -117,7 +117,7 @@ function makeResponsive() {
         return circlesGroup;
     }
 
-        // function used for updating circles group text with a transition to
+    // function used for updating circles group text with a transition to
     // new circles
     function renderYLabels(circlesGroup, newYScale, chosenYAxis) {
 
@@ -125,6 +125,57 @@ function makeResponsive() {
             .duration(1000)
             .attr("class", "stateText")
             .attr("y", d => newYScale(d[chosenYAxis]));
+
+        return circlesGroup;
+    }
+
+    // function used for updating circles group with new tooltip
+    function updateToolTip(chosenXAxis, circlesGroup, chosenYAxis) {
+
+        var xLabel;
+
+        if (chosenXAxis === "poverty") {
+            xLabel = "Poverty:"
+            
+        }
+        else if (chosenXAxis === "age") {
+            xLabel = "Age:";
+        }
+
+        else {
+            xLabel = "Household Income:";
+        }
+
+        var yLabel;
+
+        if (chosenYAxis === "healthcare") {
+            yLabel = "Healthcare:"
+            
+        }
+        else if (chosenYAxis === "smokes") {
+            yLabel = "Smokes:";
+        }
+
+        else {
+            yLabel = "Obese:";
+        }
+
+        var toolTip = d3.tip()
+            .attr("class", "d3-tip")
+            .offset([80, -60])
+            .html(function (d) {
+                return (`${d.state}<br>${xLabel} ${d[chosenXAxis]}<br>${yLabel} ${d[chosenYAxis]}`);
+            });
+
+        circlesGroup.call(toolTip);
+
+        circlesGroup.on("mouseover", function (data) {
+            toolTip.show(data);
+        })
+            // onmouseout event
+            .on("mouseout", function (data, index) {
+                toolTip.hide(data);
+            });
 
         return circlesGroup;
     }
@@ -214,7 +265,7 @@ function makeResponsive() {
         // create group for three y-axis labels
         var yAxisGroup = scatterGroup.append("g")
             .attr("class", "yLabel")
-         //   .attr("transform", "rotate(-90)")
+            //   .attr("transform", "rotate(-90)")
             .attr("transform", `translate(${0 - margin.left} , ${height / 2 - 40}) rotate(-90)`);
 
         var yAxisHealthcare = yAxisGroup.append("text")
@@ -235,7 +286,10 @@ function makeResponsive() {
             .classed("inactive", true)
             .text("Obese (%)");
 
-        /// x axis labels event listener
+        // updateToolTip function above csv import
+        var circlesGroup = updateToolTip(chosenXAxis, circlesGroup, chosenYAxis);
+
+        // x axis labels event listener
         xAxisGroup.selectAll("text")
             .on("click", function () {
                 // get value of selection
@@ -257,6 +311,9 @@ function makeResponsive() {
 
                     // updates circles text with new x values
                     labelsGroup = renderXLabels(labelsGroup, xLinearScale, chosenXAxis);
+
+                    // updates tooltips with new info
+                    circlesGroup = updateToolTip(chosenXAxis, circlesGroup, chosenYAxis);
 
                     // changes classes to change bold text
                     if (chosenXAxis === "poverty") {
@@ -316,9 +373,12 @@ function makeResponsive() {
 
                     // updates circles with new x values
                     circlesGroup = renderYCircles(circlesGroup, yLinearScale, chosenYAxis);
-                    
+
                     // updates circles text with new y values
                     labelsGroup = renderYLabels(labelsGroup, yLinearScale, chosenYAxis);
+                    
+                    // updates tooltips with new info
+                    circlesGroup = updateToolTip(chosenXAxis, circlesGroup, chosenYAxis);
 
                     // changes classes to change bold text
                     if (chosenYAxis === "healthcare") {
