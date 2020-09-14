@@ -15,7 +15,7 @@ function makeResponsive() {
         top: 50,
         right: 40,
         bottom: 80,
-        left: 40
+        left: 80
     };
 
     var width = svgWidth - margin.left - margin.right;
@@ -42,8 +42,8 @@ function makeResponsive() {
     function xScale(censusData, chosenXAxis) {
         // create scales
         var xLinearScale = d3.scaleLinear()
-            .domain([d3.min(censusData, d => d[chosenXAxis]) * 0.8,
-            d3.max(censusData, d => d[chosenXAxis]) * 1.2
+            .domain([d3.min(censusData, d => d[chosenXAxis]) * 0.95,
+            d3.max(censusData, d => d[chosenXAxis] * 1.05)
             ])
             .range([0, width]);
 
@@ -54,8 +54,8 @@ function makeResponsive() {
     function yScale(censusData, chosenYAxis) {
         // create scales
         var yLinearScale = d3.scaleLinear()
-            .domain([d3.min(censusData, d => d[chosenYAxis]) * 0.8,
-            d3.max(censusData, d => d[chosenYAxis]) * 1.2
+            .domain([d3.min(censusData, d => d[chosenYAxis]) * 0.95,
+            d3.max(censusData, d => d[chosenYAxis] * 1.05)
             ])
             .range([height, 0]);
 
@@ -79,7 +79,6 @@ function makeResponsive() {
         yAxis.transition()
             .duration(1000)
             .call(leftAxis);
-        console.log(newYScale);
         return yAxis;
     }
 
@@ -102,6 +101,30 @@ function makeResponsive() {
         circlesGroup.transition()
             .duration(1000)
             .attr("cy", d => newYScale(d[chosenYAxis]));
+
+        return circlesGroup;
+    }
+
+    // function used for updating circles group text with a transition to
+    // new circles
+    function renderXLabels(circlesGroup, newXScale, chosenXAxis) {
+
+        circlesGroup.transition()
+            .duration(1000)
+            .attr("class", "stateText")
+            .attr("x", d => newXScale(d[chosenXAxis]));
+
+        return circlesGroup;
+    }
+
+        // function used for updating circles group text with a transition to
+    // new circles
+    function renderYLabels(circlesGroup, newYScale, chosenYAxis) {
+
+        circlesGroup.transition()
+            .duration(1000)
+            .attr("class", "stateText")
+            .attr("y", d => newYScale(d[chosenYAxis]));
 
         return circlesGroup;
     }
@@ -152,19 +175,19 @@ function makeResponsive() {
             .classed("stateCircle", true)
             .attr("r", 20);
 
-        // append initial circles text
-        circlesGroup.select("circle")
+        // create group for initial circles text
+        var labelsGroup = circlesGroup.select("circle")
             .data(censusData)
             .enter()
             .append("text")
             .attr("x", d => xLinearScale(d[chosenXAxis]))
             .attr("y", d => yLinearScale(d[chosenYAxis]))
-            .classed("stateText", true)
+            .attr("class", "stateText")
             .text(function (d) { return d.abbr });
 
-        // Create group for three x-axis labels
+        // create group for three x-axis labels
         var xAxisGroup = scatterGroup.append("g")
-            .attr("class", "x label")
+            .attr("class", "xLabel")
             .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
         var xAxisPoverty = xAxisGroup.append("text")
@@ -188,16 +211,14 @@ function makeResponsive() {
             .classed("inactive", true)
             .text("Household Income (Median)");
 
-        // Create group for three y-axis labels
+        // create group for three y-axis labels
         var yAxisGroup = scatterGroup.append("g")
-            .attr("class", "y label")
-            .attr("transform", "rotate(-90)")
-            .attr("x", 0 - (height / 2))
-            .attr("y", 0 - margin.left)
-            .style("text-anchor", "middle")
+            .attr("class", "yLabel")
+         //   .attr("transform", "rotate(-90)")
+            .attr("transform", `translate(${0 - margin.left} , ${height / 2 - 40}) rotate(-90)`);
 
         var yAxisHealthcare = yAxisGroup.append("text")
-            .attr("dy", "15px")
+            .attr("dy", "45px")
             .attr("valueY", "healthcare") // value to grab for event listener
             .classed("active", true)
             .text("Lacks Healthcare (%)");
@@ -209,7 +230,7 @@ function makeResponsive() {
             .text("Smokes (%)");
 
         var yAxisObesity = yAxisGroup.append("text")
-            .attr("dy", "45px")
+            .attr("dy", "15px")
             .attr("valueY", "obesity") // value to grab for event listener
             .classed("inactive", true)
             .text("Obese (%)");
@@ -233,6 +254,9 @@ function makeResponsive() {
 
                     // updates circles with new x values
                     circlesGroup = renderXCircles(circlesGroup, xLinearScale, chosenXAxis);
+
+                    // updates circles text with new x values
+                    labelsGroup = renderXLabels(labelsGroup, xLinearScale, chosenXAxis);
 
                     // changes classes to change bold text
                     if (chosenXAxis === "poverty") {
@@ -292,6 +316,9 @@ function makeResponsive() {
 
                     // updates circles with new x values
                     circlesGroup = renderYCircles(circlesGroup, yLinearScale, chosenYAxis);
+                    
+                    // updates circles text with new y values
+                    labelsGroup = renderYLabels(labelsGroup, yLinearScale, chosenYAxis);
 
                     // changes classes to change bold text
                     if (chosenYAxis === "healthcare") {
@@ -331,6 +358,8 @@ function makeResponsive() {
                     }
                 }
             });
+
+
     }).catch(function (error) {
         console.log(error);
     });
