@@ -9,7 +9,7 @@ function makeResponsive() {
 
   // set SVG wrapper dimensions to width of the box and height relative to width
   var svgWidth = parseInt(d3.select("#scatter").style("width"));
-  var svgHeight = svgWidth - svgWidth / 3;
+  var svgHeight = svgWidth - svgWidth / 3.5;
   var margin = {
     top: 50,
     right: 40,
@@ -79,7 +79,7 @@ function makeResponsive() {
       .attr("cx", d => xLinearScale(d.poverty))
       .attr("cy", d => yLinearScale(d.healthcare))
       .classed("stateCircle", true)
-      .attr("r", 20);
+      .attr("r", 12);
 
     // append circles text
     circlesGroup.select("text")

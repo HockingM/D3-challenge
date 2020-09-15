@@ -90,7 +90,6 @@ function makeResponsive() {
             .duration(1000)
             .attr("cx", d => newXScale(d[chosenXAxis]));
 
-
         return circlesGroup;
     }
 
@@ -117,7 +116,7 @@ function makeResponsive() {
         return circlesGroup;
     }
 
-        // function used for updating circles group text with a transition to
+    // function used for updating circles group text with a transition to
     // new circles
     function renderYLabels(circlesGroup, newYScale, chosenYAxis) {
 
@@ -143,14 +142,13 @@ function makeResponsive() {
             data.obesity = +data.obesity
         });
 
-        // Create x scale function
+        // create x scale function
         var xLinearScale = xScale(censusData, chosenXAxis);
 
-        // Create y scale function
+        // create y scale function
         var yLinearScale = yScale(censusData, chosenYAxis);
 
-
-        // Create initial axis functions
+        // create initial axis functions
         var bottomAxis = d3.axisBottom(xLinearScale);
         var leftAxis = d3.axisLeft(yLinearScale);
 
@@ -173,7 +171,7 @@ function makeResponsive() {
             .attr("cx", d => xLinearScale(d[chosenXAxis]))
             .attr("cy", d => yLinearScale(d[chosenYAxis]))
             .classed("stateCircle", true)
-            .attr("r", 20);
+            .attr("r", 12);
 
         // create group for initial circles text
         var labelsGroup = circlesGroup.select("circle")
@@ -214,7 +212,6 @@ function makeResponsive() {
         // create group for three y-axis labels
         var yAxisGroup = scatterGroup.append("g")
             .attr("class", "yLabel")
-         //   .attr("transform", "rotate(-90)")
             .attr("transform", `translate(${0 - margin.left} , ${height / 2 - 40}) rotate(-90)`);
 
         var yAxisHealthcare = yAxisGroup.append("text")
@@ -316,7 +313,7 @@ function makeResponsive() {
 
                     // updates circles with new x values
                     circlesGroup = renderYCircles(circlesGroup, yLinearScale, chosenYAxis);
-                    
+
                     // updates circles text with new y values
                     labelsGroup = renderYLabels(labelsGroup, yLinearScale, chosenYAxis);
 

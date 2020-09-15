@@ -224,7 +224,7 @@ function makeResponsive() {
             .attr("cx", d => xLinearScale(d[chosenXAxis]))
             .attr("cy", d => yLinearScale(d[chosenYAxis]))
             .classed("stateCircle", true)
-            .attr("r", 20);
+            .attr("r", 12);
 
         // create group for initial circles text
         var labelsGroup = circlesGroup.select("circle")
