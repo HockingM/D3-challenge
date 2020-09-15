@@ -21,7 +21,7 @@ function makeResponsive() {
   var height = svgHeight - margin.top - margin.bottom;
 
   // create an SVG wrapper, append an SVG group that will hold our chart,
-  // and shift the latter by left and top margins.
+  // and shift the latter by left and top margins
   var svg = d3
     .select("#scatter")
     .append("svg")
@@ -47,8 +47,8 @@ function makeResponsive() {
 
     // create x scale function
     var xLinearScale = d3.scaleLinear()
-      .domain([d3.min(censusData, d => d.poverty) * 0.9,
-      d3.max(censusData, d => d.poverty) * 1.1
+      .domain([d3.min(censusData, d => d.poverty) * 0.95,
+      d3.max(censusData, d => d.poverty) * 1.05
       ])
       .range([0, width]);
 
@@ -81,7 +81,7 @@ function makeResponsive() {
       .classed("stateCircle", true)
       .attr("r", 12);
 
-    // append circles text
+    // append initial circles text
     circlesGroup.select("text")
       .data(censusData)
       .enter()

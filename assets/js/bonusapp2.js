@@ -21,8 +21,8 @@ function makeResponsive() {
     var width = svgWidth - margin.left - margin.right;
     var height = svgHeight - margin.top - margin.bottom;
 
-    // Create an SVG wrapper, append an SVG group that will hold our chart,
-    // and shift the latter by left and top margins.
+    // create an SVG wrapper, append an SVG group that will hold our chart,
+    // and shift the latter by left and top margins
     var svg = d3
         .select("#scatter")
         .append("svg")
@@ -194,14 +194,14 @@ function makeResponsive() {
             data.obesity = +data.obesity
         });
 
-        // Create x scale function
+        // create x scale function
         var xLinearScale = xScale(censusData, chosenXAxis);
 
-        // Create y scale function
+        // create y scale function
         var yLinearScale = yScale(censusData, chosenYAxis);
 
 
-        // Create initial axis functions
+        // create initial axis functions
         var bottomAxis = d3.axisBottom(xLinearScale);
         var leftAxis = d3.axisLeft(yLinearScale);
 
@@ -226,7 +226,7 @@ function makeResponsive() {
             .classed("stateCircle", true)
             .attr("r", 12);
 
-        // create group for initial circles text
+        // append initial circles
         var labelsGroup = circlesGroup.select("circle")
             .data(censusData)
             .enter()
