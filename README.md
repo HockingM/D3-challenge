@@ -21,7 +21,7 @@ Note: testing was done using `python -m http.server`to run the visualization. Th
 * To review Solution 2, [bonusapp.js](./assets/js/bonusapp.js), the file should be updated to show below and saved prior to execution.  
   ![image](html_screenshot2.png)
 
-* To review Solution 2, [bonusapp2.js](./assets/js/bonusapp2.js), the file should be updated to show below and saved prior to execution.  
+* To review Solution 3, [bonusapp2.js](./assets/js/bonusapp2.js), the file should be updated to show below and saved prior to execution.  
   ![image](html_screenshot3.png)
 
 ## Built With
