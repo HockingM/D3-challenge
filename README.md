@@ -13,9 +13,16 @@ Note: testing was done using `python -m http.server`to run the visualization. Th
 
 ## Usage
 
-- To view the individual solutions requires selecting the specific '<script> src ' in the [index.html](index.html) file
-  ![image](html_screenshot.png)
+- To view the individual solutions requires selecting the specific `<script> src` line in the [index.html](index.html) source code.
 
+* To review Solution 1, [app.js](./assets/js/app.js), the file should be updated to show below and saved prior to execution. 
+  ![image](html_screenshot.png)
+  
+* To review Solution 2, [bonusapp.js](./assets/js/bonusapp.js), the file should be updated to show below and saved prior to execution.  
+  ![image](html_screenshot2.png)
+
+* To review Solution 2, [bonusapp2.js](./assets/js/bonusapp2.js), the file should be updated to show below and saved prior to execution.  
+  ![image](html_screenshot3.png)
 
 ## Built With
 
